@@ -1081,6 +1081,13 @@
       }
       band.style.setProperty('--mw', setW.toFixed(1) + 'px');
       band.style.setProperty('--mt', Math.max(10, setW / 40).toFixed(1) + 's');
+      // 원본과 복사본이 같은 박자로 움직이도록 애니메이션을 한꺼번에 처음부터 다시 시작
+      requestAnimationFrame(function () {
+        var all = Array.prototype.slice.call(band.children);
+        all.forEach(function (el) {
+          if (el.getAnimations) el.getAnimations().forEach(function (a) { a.currentTime = 0; });
+        });
+      });
     }
     var t;
     window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 200); });
