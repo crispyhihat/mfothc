@@ -1,5 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>은탁이</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>은탁이</title>
 <style id="page-style">
   :root {
     --bg: #ffffff;
@@ -467,6 +466,76 @@
     html.fx .fx-up, html.fx .dots i, html.fx .bigline > span { opacity: 1; transform: none; transition: none; }
     .pic img, .pic:hover img { transform: none; }
   }
+
+  /* ── 추가 정보 ── */
+  .tagline {
+    margin: 4px 0 0;
+    color: var(--fg);
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+  .ratio { margin: -16px 0 52px; text-align: center; }
+  .ratio-bar {
+    display: flex;
+    gap: 3px;
+    height: 6px;
+    max-width: 260px;
+    margin: 0 auto 8px;
+  }
+  .ratio-bar i { display: block; height: 100%; background: var(--ink); }
+  .ratio-bar i:nth-child(2) { background: #8a8a8a; }
+  .ratio-bar i:nth-child(3) { background: #cfcfcf; }
+  .ratio p { font-size: 11px; color: var(--fg); }
+
+  .favs { margin: -40px 0 64px; }
+  .favs .split { grid-template-columns: 96px 1fr; }
+
+  .cheer { margin-top: 12px; padding-top: 10px; border-top: 1px dotted var(--line); }
+  .cheer-label {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 0 6px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.7;
+  }
+
+  .talk {
+    margin: -40px 0 80px;
+    border: 1px solid var(--line);
+  }
+  .talk h2 {
+    margin: 0;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 800;
+    text-align: center;
+  }
+  .talk li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  .talk li + li { border-top: 1px solid var(--line); }
+  .talk .mark {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .talk li:last-child .mark { border-radius: 0; background: var(--ink); color: var(--bg); }
 </style>
 <main id="content">
 
@@ -483,7 +552,13 @@
   <div class="name">
     <h1>은탁이</h1>
     <a class="handle" href="https://x.com/mfothc" target="_blank" rel="noopener">@mfothc</a>
+    <p class="tagline">성인 | 일상계</p>
     <div class="dots" aria-hidden="true" contenteditable="false"><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="ratio">
+    <div class="ratio-bar" aria-hidden="true" contenteditable="false"><i style="flex:50"></i><i style="flex:20"></i><i style="flex:30"></i></div>
+    <p>1차 BL 50% + 게임 20% + 일상 30%</p>
   </div>
 
   <section id="bl">
@@ -510,6 +585,17 @@
     <span>#대형견공</span><span>#연하공</span><span>#능력수</span><span>#문란수</span>
   </div>
 
+  <div class="favs">
+    <div class="split">
+      <div class="label">CP</div>
+      <p>데스노트 엘월, 뱅드림 유키리사, 뱅드림 아논소요</p>
+    </div>
+    <div class="split">
+      <div class="label">요즘 보는 중</div>
+      <p>웹소설 변호됨</p>
+    </div>
+  </div>
+
   <div class="note-box">
     <div class="txt">
       <div class="dots" aria-hidden="true" contenteditable="false"><i></i><i></i><i></i></div>
@@ -528,12 +614,21 @@
     <div class="round-box" id="game">
       <h2>GAME</h2>
       <p>오버워치, OWCS (프로게이머 얘기 有)<br>뱅드림<br>페르소나</p>
+      <p class="cheer"><span class="cheer-label">응원</span> K4NE 선수</p>
     </div>
     <div class="round-box" id="etc">
       <h2>etc</h2>
       <p>애니메이션 (데스노트, 카우보이 비밥 + a)<br>토이대디, 새디스틱 뷰티 등 여공남수<br>웹소설 변호됨 ing<br>여자 아이돌 rt 많음<br>다이어리, 문구류</p>
     </div>
   </div>
+
+  <section class="talk">
+    <h2>소통</h2>
+    <ul>
+      <li><span class="mark" aria-hidden="true" contenteditable="false">O</span>멘션 나누는 거 좋아해요 🫶🏼</li>
+      <li><span class="mark" aria-hidden="true" contenteditable="false">X</span>재연결x 블락 부탁드립니다</li>
+    </ul>
+  </section>
 
   <section class="arch" id="ng">
     <h2>NG</h2>
@@ -809,7 +904,7 @@
     document.documentElement.classList.add('fx');
 
     // 떠오를 대상 표시 (저장할 때는 빠짐)
-    var upSel = '.sec-head, .book, .split, .keywords, .note-box, .duo > *, .arch';
+    var upSel = '.ratio, .sec-head, .book, .split, .keywords, .note-box, .duo > *, .talk, .arch';
     main.querySelectorAll(upSel).forEach(function (el) { el.classList.add('fx-up'); });
 
     var io = new IntersectionObserver(function (entries) {
