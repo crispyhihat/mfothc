@@ -1,4 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>은탁이</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>은탁이</title>
 <style id="page-style">
   :root {
     --bg: #ffffff;
@@ -398,6 +399,74 @@
     background: linear-gradient(transparent 50%, #d6d6d6 50%);
     padding: 0 1px;
   }
+
+  /* ── 스크롤 효과 ── */
+  /* 메뉴 따라오기 */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    margin: 0 -16px;
+    padding: 16px 20px 12px;
+    background: var(--bg);
+    transition: box-shadow .25s;
+  }
+  nav.fx-stuck { box-shadow: 0 1px 0 var(--line); }
+  nav a { position: relative; }
+  nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+  }
+  nav a.fx-current::after { transform: scaleX(1); }
+  #bl, #game, #etc, #ng { scroll-margin-top: 64px; }
+
+  /* 아래에서 떠오르기 */
+  html.fx .fx-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .2, 1);
+  }
+  html.fx .fx-up.fx-in { opacity: 1; transform: none; }
+
+  /* ●●● 차례로 켜지기 */
+  html.fx .dots i {
+    transform: scale(0);
+    transition: transform .35s cubic-bezier(.3, 1.6, .5, 1);
+  }
+  html.fx .dots i:nth-child(2) { transition-delay: .12s; }
+  html.fx .dots i:nth-child(3) { transition-delay: .24s; }
+  html.fx .dots.fx-in i { transform: scale(1); }
+
+  /* GAME + etc 미끄러지기 */
+  html.fx .bigline > span {
+    opacity: 0;
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2, .7, .2, 1);
+  }
+  html.fx .bigline > span:first-child { transform: translateX(-60px); }
+  html.fx .bigline > span:last-child { transform: translateX(60px); }
+  html.fx .bigline > .op { transform: scale(.4); transition-delay: .25s; }
+  html.fx .bigline.fx-in > span { opacity: 1; transform: none; }
+
+  /* 사진 시차 효과 */
+  .pic img {
+    transform: translateY(var(--py, 0px)) scale(1.12);
+    transition: none;
+    will-change: transform;
+  }
+  .pic:hover img { transform: translateY(var(--py, 0px)) scale(1.16); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.fx .fx-up, html.fx .dots i, html.fx .bigline > span { opacity: 1; transform: none; transition: none; }
+    .pic img, .pic:hover img { transform: none; }
+  }
 </style>
 <main id="content">
 
@@ -618,6 +687,15 @@
         var c = main.cloneNode(true);
         c.removeAttribute('contenteditable');
         c.removeAttribute('spellcheck');
+        c.querySelectorAll('.fx-up, .fx-in, .fx-current, .fx-stuck').forEach(function (el) {
+          el.classList.remove('fx-up', 'fx-in', 'fx-current', 'fx-stuck');
+          if (!el.className) el.removeAttribute('class');
+        });
+        c.querySelectorAll('[class=""]').forEach(function (el) { el.removeAttribute('class'); });
+        c.querySelectorAll('[style]').forEach(function (el) {
+          el.style.removeProperty('--py');
+          if (!el.getAttribute('style')) el.removeAttribute('style');
+        });
         var keep = Array.prototype.map.call(document.querySelectorAll('script[data-keep]'), function (sc) {
           return '<script data-keep>' + sc.textContent + '</scr' + 'ipt>';
         }).join('\n');
@@ -720,6 +798,66 @@
       if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
       sx = null;
     });
+  })();
+</script>
+<script data-keep>
+  // 스크롤 효과: 떠오르기, ●●● 켜지기, GAME + etc 미끄러지기, 사진 시차, 메뉴 따라오기
+  (function () {
+    var main = document.getElementById('content');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('fx');
+
+    // 떠오를 대상 표시 (저장할 때는 빠짐)
+    var upSel = '.sec-head, .book, .split, .keywords, .note-box, .duo > *, .arch';
+    main.querySelectorAll(upSel).forEach(function (el) { el.classList.add('fx-up'); });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('fx-in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
+    main.querySelectorAll('.fx-up, .dots, .bigline').forEach(function (el) { io.observe(el); });
+
+    // 메뉴: 붙었을 때 선, 지금 보는 섹션에 밑줄
+    var nav = main.querySelector('nav');
+    var links = nav ? Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]')) : [];
+    var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+
+    // 사진 시차
+    var pics = Array.prototype.slice.call(main.querySelectorAll('.pic'));
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight;
+      if (nav) nav.classList.toggle('fx-stuck', nav.getBoundingClientRect().top <= 0 && window.scrollY > 10);
+
+      var current = -1;
+      targets.forEach(function (t, i) {
+        if (t && t.getBoundingClientRect().top < vh * 0.35) current = i;
+      });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = targets.length - 1;
+      links.forEach(function (a, i) { a.classList.toggle('fx-current', i === current); });
+
+      if (!reduce) {
+        pics.forEach(function (p) {
+          var r = p.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > vh) return;
+          var off = (r.top + r.height / 2 - vh / 2) / vh;
+          var py = Math.max(-1, Math.min(1, off)) * r.height * -0.06;
+          p.style.setProperty('--py', py.toFixed(1) + 'px');
+        });
+      }
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
   })();
 </script>
 </body></html>
