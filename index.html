@@ -1,5 +1,7 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><title>은탁이</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta name="description" content="성인 | 일상계 · 1차 BL 50% + 게임 20% + 일상 30%"><meta property="og:type" content="website"><meta property="og:title" content="은탁이 (@mfothc)"><meta property="og:description" content="성인 | 일상계 · 1차 BL 50% + 게임 20% + 일상 30%"><meta property="og:url" content="https://crispyhihat.github.io/mfothc/"><meta property="og:image" content="https://crispyhihat.github.io/mfothc/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="은탁이 (@mfothc)"><meta name="twitter:description" content="성인 | 일상계 · 1차 BL 50% + 게임 20% + 일상 30%"><meta name="twitter:image" content="https://crispyhihat.github.io/mfothc/og.jpg"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%23111%27/%3E%3Ctext x=%2732%27 y=%2747%27 font-size=%2744%27 text-anchor=%27middle%27 fill=%27%23fff%27 font-family=%27Arial%27%3E%E2%9C%B1%3C/text%3E%3C/svg%3E"></head><body>
+<title>은탁이</title>
 <style id="page-style">
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap");
   :root {
     --bg: #ffffff;
     --ink: #111111;
@@ -16,7 +18,7 @@
     margin: 0;
     background: var(--bg);
     color: var(--fg);
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    font-family: "Noto Sans KR", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
     font-size: 12.5px;
     line-height: 1.75;
     letter-spacing: -0.01em;
@@ -547,6 +549,79 @@
   #game { padding: 16px 12px; }
   @media (min-width: 560px) { .duo #game, .duo #etc { grid-column: span 2; } }
   .ow-body .cheer + .ow-note { margin-top: 4px; }
+
+  /* ── 꾸미기 ── */
+  /* 섹션 번호 */
+  .duo > .sec-head { grid-column: 1 / -1; margin: 6px 2px 0; }
+  .duo > .sec-head:first-child { margin-top: 0; }
+  .ng-head { max-width: 360px; margin: 0 auto 10px; }
+
+  /* NG 반전 */
+  .arch { background: var(--ink); color: #e6e6e6; border-color: var(--ink); }
+  .arch h2 { color: #fff; }
+  .arch .dots i { background: #fff; }
+  .arch .dots i:nth-child(2) { background: #9a9a9a; }
+  .arch .dots i:nth-child(3) { background: #555; }
+
+  /* 영문 제목 세리프 */
+  .arch h2 {
+    font-family: "Instrument Serif", "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 44px;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+  .bigline em { font-family: "Instrument Serif", "Times New Roman", serif; font-size: 1.15em; }
+
+  /* 흐르는 해시태그 띠 */
+  .keywords {
+    display: flex;
+    overflow: hidden;
+    background: var(--ink);
+    border-color: var(--ink);
+    white-space: nowrap;
+  }
+  .keywords span {
+    flex: none;
+    padding: 12px 0;
+    color: #fff;
+    letter-spacing: .02em;
+    animation: fx-marquee var(--mt, 16s) linear infinite;
+  }
+  .keywords span + span { border-left: 0; }
+  .keywords span::after { content: "✱"; margin: 0 18px; color: #777; }
+  @keyframes fx-marquee { from { transform: translateX(0); } to { transform: translateX(calc(-1 * var(--mw, 0px))); } }
+  body.editing .keywords span { animation: none; }
+  body.editing .keywords .fx-clone { display: none; }
+  @media (min-width: 560px) { .keywords { border: 0; } }
+
+  /* 종이 질감 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+    opacity: .06;
+  }
+
+  /* 마무리 */
+  .end { margin: -24px 0 0; text-align: center; }
+  .end-line { display: block; width: 100%; height: 1px; margin: 0 0 14px; background: var(--line); }
+  .end p { color: var(--muted); font-size: 10.5px; letter-spacing: .12em; }
+
+  @media (prefers-reduced-motion: reduce) { .keywords span { animation: none; } }
+
+  /* LIKE · TALK 머리글 */
+  .like-head { margin-top: -50px; }
+  .favs { margin: 0 0 80px; }
+  .talk-head { margin-top: -40px; }
+  .talk { margin: 0 0 80px; }
+  .round-box .split:first-child { margin-top: 0; }
+  #game { border: 0; padding: 0; }
 </style>
 <main id="content">
 
@@ -587,7 +662,7 @@
     </div>
     <div class="split">
       <div class="label">&lt;웹툰&gt;</div>
-      <p>시절인연(♥︎) , 해빙곡선, 힛 미 하드, 알파 트라우마, 백라이트, 밤은 부드러워라, 동정의 형태, 스케치, 적반하장의 허슬플레이, 하강비행, 선의의 폭력, 주의 평화, 열 해 …</p>
+      <p>시절인연(♥︎), 해빙곡선, 힛 미 하드, 알파 트라우마, 백라이트, 밤은 부드러워라, 동정의 형태, 스케치, 적반하장의 허슬플레이, 하강비행, 선의의 폭력, 주의 평화, 열 해 …</p>
     </div>
   </section>
 
@@ -610,8 +685,8 @@
   </div>
 
   <div class="duo">
+    <div class="sec-head"><span>( GAME )</span><span class="num" contenteditable="false">02</span></div>
     <div class="round-box" id="game">
-      <h2>GAME</h2>
       <div class="split ow">
         <div class="label">OVER<br>WATCH</div><div class="ow-body">
           <p>올포지 빡겜 유저입니다<br>같이 게임해요</p>
@@ -623,16 +698,17 @@
         <p>뱅드림<br>페르소나</p>
       </div>
     </div>
+    <div class="sec-head"><span>( etc )</span><span class="num" contenteditable="false">03</span></div>
     <div class="round-box" id="etc">
-      <h2>etc</h2>
       <p>애니메이션 (데스노트, 카우보이 비밥 …)<br>토이대디, 새디스틱 뷰티 등 여공남수<br>웹소설<br>여자 아이돌<br>다이어리, 문구류</p>
     </div>
   </div>
 
+  <div class="sec-head like-head"><span>( LIKE )</span><span class="num" contenteditable="false">04</span></div>
   <div class="favs">
     <div class="split">
       <div class="label">CP</div>
-      <p>데스노트 엘월, 뱅드림 유키리사 아논소요</p>
+      <p>데스노트 엘월<br>뱅드림 유키리사 · 아논소요</p>
     </div>
     <div class="split">
       <div class="label">ing</div>
@@ -640,6 +716,7 @@
     </div>
   </div>
 
+  <div class="sec-head talk-head"><span>( TALK )</span><span class="num" contenteditable="false">05</span></div>
   <section class="talk">
     <ul>
       <li><span class="mark" aria-hidden="true" contenteditable="false">O</span>멘션 나누는 거 좋아합니다! (스루는 고의가 아닙니다...)</li>
@@ -647,17 +724,23 @@
     </ul>
   </section>
 
+  <div class="sec-head ng-head"><span>( NG )</span><span class="num" contenteditable="false">06</span></div>
   <section class="arch" id="ng">
     <h2>NG</h2>
     <ul>
-      <li>미성년자</li>
-      <li>계정주 남자</li>
-      <li>퀴혐</li>
+      <li>미성년자 (특히 미성년자 성인물 소비 정말 싫습니다...)</li>
+      <li>계정주 남자</li><li><u class="ul">3D 남자</u> 안 좋아합니다 언급이 많으면 팔로우 재고해 주세요</li>
+      <li>퀴혐,&nbsp;<span style="letter-spacing: -0.01em; -webkit-text-size-adjust: 100%;">트위터식 래디컬 페미 논리 동의 안 해요</span></li>
       <li>불싸충</li>
       <li>취향 너무 까다로우신 분</li>
     </ul>
     <div class="dots arch-dots" aria-hidden="true" contenteditable="false"><i></i><i></i><i></i></div>
   </section>
+
+  <footer class="end">
+    <span class="end-line" aria-hidden="true" contenteditable="false"></span>
+    <p>은탁이 · @mfothc</p>
+  </footer>
 
 
 </main>
@@ -803,9 +886,12 @@
           el.classList.remove('fx-up', 'fx-in', 'fx-current', 'fx-stuck');
           if (!el.className) el.removeAttribute('class');
         });
+        c.querySelectorAll('.fx-clone').forEach(function (el) { el.remove(); });
         c.querySelectorAll('[class=""]').forEach(function (el) { el.removeAttribute('class'); });
         c.querySelectorAll('[style]').forEach(function (el) {
           el.style.removeProperty('--py');
+          el.style.removeProperty('--mw');
+          el.style.removeProperty('--mt');
           if (!el.getAttribute('style')) el.removeAttribute('style');
         });
         var keep = Array.prototype.map.call(document.querySelectorAll('script[data-keep]'), function (sc) {
@@ -921,7 +1007,7 @@
     document.documentElement.classList.add('fx');
 
     // 떠오를 대상 표시 (저장할 때는 빠짐)
-    var upSel = '.ratio, .sec-head, .book, .split, .keywords, .note-box, .duo > *, .talk, .arch';
+    var upSel = '.ratio, .sec-head, .book, .split, .keywords, .note-box, .duo > *, .talk, .arch, .end';
     main.querySelectorAll(upSel).forEach(function (el) { el.classList.add('fx-up'); });
 
     var io = new IntersectionObserver(function (entries) {
@@ -970,6 +1056,40 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     update();
+  })();
+</script>
+<script data-keep>
+  // 해시태그 띠: 화면을 채울 만큼 복사해서 끊김 없이 흐르게 (복사본은 저장되지 않음)
+  (function () {
+    var band = document.querySelector('#content .keywords');
+    if (!band) return;
+    function build() {
+      band.querySelectorAll('.fx-clone').forEach(function (el) { el.remove(); });
+      var originals = Array.prototype.slice.call(band.children);
+      if (!originals.length) return;
+      var setW = originals.reduce(function (w, el) { return w + el.getBoundingClientRect().width; }, 0);
+      if (!setW) return;
+      var copies = Math.ceil((band.clientWidth * 2) / setW);
+      for (var i = 0; i < copies; i++) {
+        originals.forEach(function (el) {
+          var c = el.cloneNode(true);
+          c.classList.add('fx-clone');
+          c.setAttribute('aria-hidden', 'true');
+          c.setAttribute('contenteditable', 'false');
+          band.appendChild(c);
+        });
+      }
+      band.style.setProperty('--mw', setW.toFixed(1) + 'px');
+      band.style.setProperty('--mt', Math.max(10, setW / 40).toFixed(1) + 's');
+    }
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 200); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(build); else build();
+    setTimeout(build, 50);
+    // 편집을 마치면 바뀐 글자로 다시 만들기
+    new MutationObserver(function () {
+      if (!document.body.classList.contains('editing')) build();
+    }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
   })();
 </script>
 </body></html>
